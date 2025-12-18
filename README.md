@@ -323,18 +323,6 @@ func CalculateAge(dob time.Time) int {
 }
 ```
 
-## Environment Variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `DB_HOST` | PostgreSQL host | `localhost` |
-| `DB_PORT` | PostgreSQL port | `5432` |
-| `DB_USER` | Database user | `postgres` |
-| `DB_PASSWORD` | Database password | `postgres` |
-| `DB_NAME` | Database name | `userdb` |
-| `SERVER_PORT` | API server port | `8080` |
-| `ENV` | Environment (development/production) | `development` |
-
 ## Make Commands
 
 ```bash
@@ -403,4 +391,3 @@ CREATE TABLE users (
 ## License
 
 MIT License
-# age_calculator
