@@ -47,6 +47,9 @@ func Logger(logger *zap.Logger) fiber.Handler {
 }
 
 func ErrorHandler(c *fiber.Ctx, err error) error {
+	if c.Method() == fiber.MethodOptions {
+		return c.SendStatus(fiber.StatusOK)
+	}
 	code := fiber.StatusInternalServerError
 	message := "Internal Server Error"
 

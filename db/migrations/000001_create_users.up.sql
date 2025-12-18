@@ -6,6 +6,4 @@ CREATE TABLE IF NOT EXISTS users (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX idx_users_dob ON users(dob);
-
-DROP TABLE IF EXISTS users;
+CREATE INDEX IF NOT EXISTS idx_users_dob ON users(dob);

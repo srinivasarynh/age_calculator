@@ -4,7 +4,7 @@ import (
 	"errors"
 	"strconv"
 
-	"github.com/go-playground/validator"
+	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"github.com/srinivasarynh/age_calculator/internal/models"
 	"github.com/srinivasarynh/age_calculator/internal/service"

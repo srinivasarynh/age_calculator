@@ -51,7 +51,7 @@ func (r *userRepository) Create(ctx context.Context, name string, dob time.Time)
 }
 
 func (r *userRepository) GetById(ctx context.Context, id int32) (*models.User, error) {
-	query := `SELECT id, name, dob, created_at, updated_at FROM usrs WHERE id = $1`
+	query := `SELECT id, name, dob, created_at, updated_at FROM users WHERE id = $1`
 
 	var user models.User
 	err := r.db.QueryRowContext(ctx, query, id).Scan(
@@ -81,10 +81,10 @@ func (r *userRepository) List(ctx context.Context, limit, offset int32) ([]model
 	}
 	defer rows.Close()
 
-	var users []models.User
+	users := make([]models.User, 0)
 	for rows.Next() {
 		var user models.User
-		if err := rows.Scan(&user.Name, &user.DOB, &user.CreatedAt, &user.UpdatedAt); err != nil {
+		if err := rows.Scan(&user.ID, &user.Name, &user.DOB, &user.CreatedAt, &user.UpdatedAt); err != nil {
 			r.logger.Error("Failed to scan user", zap.Error(err))
 			return nil, err
 		}
