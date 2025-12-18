@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
+
+	_ "github.com/lib/pq"
 )
 
 type Config struct {
@@ -36,7 +38,14 @@ func getEnv(key, defaultValue string) string {
 }
 
 func NewDatabase(cfg *Config) (*sql.DB, error) {
-	dsn := fmt.Sprintf("host=%s port=%s password=%s dbname=%s sslmode=disable", cfg.DBHost, cfg.DBPort, cfg.DBUser, cfg.DBPassword, cfg.DBName)
+	dsn := fmt.Sprintf(
+		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		cfg.DBHost,
+		cfg.DBPort,
+		cfg.DBUser,
+		cfg.DBPassword,
+		cfg.DBName,
+	)
 	db, err := sql.Open("postgres", dsn)
 	if err != nil {
 		return nil, err
