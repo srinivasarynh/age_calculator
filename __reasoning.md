@@ -33,14 +33,6 @@ Used **raw SQL queries** with `database/sql` package instead of an ORM (GORM, En
 - **SQLC Ready**: Prepared for SQLC code generation (included in structure)
 - **Learning**: Better understanding of SQL for developers
 
-### Trade-offs
-- **More Code**: Need to write SQL queries manually and handle scanning
-- **No Migrations**: No built-in migration tool (but SQL migrations are standard)
-- **Type Safety**: Less compile-time safety compared to type-safe ORMs like Ent
-
-### Alternative Considered
-Could use SQLC for type-safe generated code, but kept it simple with raw SQL to demonstrate fundamentals.
-
 ---
 
 ## 3. Web Framework: GoFiber
@@ -54,6 +46,7 @@ Chose **GoFiber** over standard library or alternatives (Gin, Echo, Chi).
 - **Rich Middleware**: Built-in middleware for CORS, recovery, compression
 - **Modern**: Active development and strong community support
 - **Low Memory**: Efficient memory usage compared to net/http
+
 ---
 
 ## 4. Validation: go-playground/validator
@@ -75,9 +68,6 @@ type CreateUserRequest struct {
     DOB  string `json:"dob" validate:"required,datetime=2006-01-02"`
 }
 ```
-
-### Alternative Considered
-Could validate manually in handlers, but struct tags are cleaner and more maintainable.
 
 ---
 
@@ -106,9 +96,6 @@ Implemented **Uber Zap** for structured logging.
   "duration": "2.5ms"
 }
 ```
-
-### Why Not Standard Logger?
-Standard `log` package lacks structured logging, making it hard to parse and analyze logs at scale.
 
 ---
 
@@ -144,9 +131,6 @@ func CalculateAge(dob time.Time) int {
 - Birthday today
 - Birthday tomorrow/yesterday
 - Month/day boundary conditions
-
-### Alternative Considered
-Could store age in database and update via cron job, but this adds complexity and potential inconsistency.
 
 ---
 
@@ -228,9 +212,6 @@ Added **offset-based pagination** with configurable page size.
 - `page`: Current page number (default: 1)
 - `page_size`: Items per page (default: 10, max: 100)
 
-### Alternative Considered
-Could use **cursor-based pagination** for better performance with large datasets, but offset-based is simpler and sufficient for most use cases.
-
 ---
 
 ## 10. Docker Setup
@@ -300,15 +281,9 @@ Implemented **unit tests** for age calculation, with structure for more tests.
 3. **E2E Tests**: Full API flows with test containers
 4. **Benchmark Tests**: Performance testing for age calculation
 
-### Why Start with Unit Tests?
-- Fastest to run
-- No external dependencies
-- Demonstrate testing approach
-- Most critical business logic
-
 ---
 
-## 13. Date Format: ISO 8601
+## 13. Date Format
 
 ### Decision
 Used **YYYY-MM-DD** format for dates.
@@ -484,11 +459,6 @@ app.ShutdownWithContext(context.Background())
 3. **Production-Ready**: Logging, errors, Docker, graceful shutdown
 4. **Performance**: Fast framework, connection pooling, efficient queries
 
-### What We Didn't Optimize For
-1. **Minimal Code**: Chose clarity over brevity
-2. **Cutting Edge**: Used stable, proven technologies
-3. **Every Feature**: Focused on core requirements + best practices
-
 ---
 
 ## 23. Future Enhancements
@@ -505,12 +475,6 @@ app.ShutdownWithContext(context.Background())
 - [ ] Background jobs (for reports, emails)
 - [ ] Soft deletes
 
-### Nice to Have
-- [ ] GraphQL endpoint
-- [ ] WebSocket support
-- [ ] Multiple database support
-- [ ] Multi-tenancy
-
 ---
 
 ## 24. Lessons & Best Practices
@@ -521,18 +485,6 @@ app.ShutdownWithContext(context.Background())
 3. **Log Everything**: Structured logs are invaluable
 4. **Test Core Logic**: Unit tests for business logic first
 5. **Document Decisions**: This file helps future developers
-
-### Patterns to Continue
-- Dependency injection (pass dependencies explicitly)
-- Interface-driven design (easy to mock/swap)
-- Error wrapping (preserve context up the stack)
-- Consistent naming (similar functions across layers)
-
-### Patterns to Avoid
-- Global state (use dependency injection)
-- Magic values (use constants)
-- God objects (keep packages focused)
-- Implicit behavior (make it explicit)
 
 ---
 
@@ -548,7 +500,3 @@ This API demonstrates production-ready Go development with:
 The design prioritizes **maintainability**, **testability**, and **developer experience** while maintaining high performance and production readiness.
 
 ---
-
-**Author**: Built following Go best practices and industry standards  
-**Date**: December 2025  
-**Version**: 1.0
