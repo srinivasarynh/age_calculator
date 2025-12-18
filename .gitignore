@@ -1,0 +1,137 @@
+##################################
+# Go build artifacts
+##################################
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go build output
+*.test
+*.out
+bin/
+dist/
+build/
+
+# Go workspace
+/pkg/
+Godeps/
+
+##################################
+# Go tooling & dependency cache
+##################################
+# Vendor (ignore only if NOT vendoring dependencies)
+# vendor/
+
+# Coverage reports
+coverage.out
+coverage.txt
+coverage.html
+
+# Benchmarks & profiles
+*.prof
+*.pprof
+cpu.out
+mem.out
+
+##################################
+# Environment & secrets
+##################################
+.env
+.env.*
+!.env.example
+
+# Secrets
+*.key
+*.pem
+*.crt
+secrets/
+config/local.yaml
+config/dev.yaml
+
+##################################
+# Logs & runtime data
+##################################
+logs/
+*.log
+tmp/
+tmp/**
+runtime/
+
+##################################
+# Database & migrations
+##################################
+*.db
+*.sqlite
+*.sqlite3
+db_data/
+postgres_data/
+mysql_data/
+
+##################################
+# Docker
+##################################
+.docker/
+docker-compose.override.yml
+docker-compose.local.yml
+Dockerfile.local
+
+##################################
+# CI/CD
+##################################
+# Ignore local CI artifacts
+coverage/
+artifacts/
+
+##################################
+# IDEs & editors
+##################################
+# VS Code
+.vscode/
+!.vscode/extensions.json
+
+# GoLand / IntelliJ
+.idea/
+*.iml
+
+# Vim
+*.swp
+*.swo
+
+##################################
+# OS files
+##################################
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+##################################
+# Testing
+##################################
+testdata/output/
+tests/**/output/
+
+##################################
+# Generated files
+##################################
+# Mock generators / codegen
+mock_*.go
+*_generated.go
+*_gen.go
+
+##################################
+# Temporary files
+##################################
+*.tmp
+*.temp
