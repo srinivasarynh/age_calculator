@@ -2,7 +2,6 @@
 	docker-build docker-up docker-down docker-logs \
 	migrate-up migrate-down migrate-create migrate-docker
 
-# Load env vars
 -include .env
 export
 
@@ -13,54 +12,51 @@ BIN_FILE := $(BIN_DIR)/server
 DB_URL_LOCAL := postgresql://postgres:postgres@localhost:5432/userdb?sslmode=disable
 DB_URL_DOCKER := postgresql://postgres:postgres@postgres:5432/userdb?sslmode=disable
 
-help: ## Show help
+help: 
 	@echo 'Usage: make [target]'
 	@echo ''
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-20s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-build: ## Build binary
+build:
 	go build -o $(BIN_FILE) cmd/server/main.go
 
-run: ## Run locally
+run: 
 	go run cmd/server/main.go
 
-test: ## Run tests
+test:
 	go test -v ./...
 
-test-coverage: ## Run tests with coverage
+test-coverage:
 	go test -coverprofile=coverage.out ./...
 	go tool cover -html=coverage.out
 
-clean: ## Clean artifacts
+clean: 
 	rm -rf $(BIN_DIR) coverage.out
 
-deps: ## Download dependencies
+deps:
 	go mod download
 	go mod tidy
 
-sqlc: ## Generate sqlc code
+sqlc:
 	sqlc generate
 
-docker-build: ## Build docker image
+docker-build:
 	docker build -t $(APP_NAME):latest .
 
-docker-up: ## Start docker stack
+docker-up: 
 	docker compose up -d --build
 
-docker-down: ## Stop docker stack
+docker-down:
 	docker compose down
 
-docker-logs: ## Follow docker logs
+docker-logs:
 	docker compose logs -f
 
-# -------------------------
-# Migrations (local)
-# -------------------------
 
-migrate-up: ## Run migrations locally
+migrate-up: 
 	migrate -path db/migrations -database "$(DB_URL_LOCAL)" up
 
-migrate-down: ## Rollback migrations locally (CONFIRM!)
+migrate-down:
 	@read -p "Are you sure? This will rollback DB (y/N): " ans; \
 	if [ "$$ans" = "y" ]; then \
 		migrate -path db/migrations -database "$(DB_URL_LOCAL)" down; \
@@ -68,16 +64,13 @@ migrate-down: ## Rollback migrations locally (CONFIRM!)
 		echo "Aborted"; \
 	fi
 
-migrate-create: ## Create new migration (name=xxx)
+migrate-create:
 	migrate create -ext sql -dir db/migrations -seq $(name)
 
-# -------------------------
-# Migrations (Docker)
-# -------------------------
 
 migrate-docker:
 	docker run --rm \
-		--network user-api_default \
+		--network container:user_api_postgres\
 		-v $(PWD)/db/migrations:/migrations \
 		migrate/migrate \
 		-path=/migrations \
