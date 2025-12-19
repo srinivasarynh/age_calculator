@@ -325,13 +325,6 @@ Used **semantic HTTP status codes** consistently.
 | 404 Not Found | Resource doesn't exist |
 | 500 Internal Server Error | Server errors |
 
-### Why Not Just 200?
-Proper status codes:
-- Help clients handle errors correctly
-- Follow REST conventions
-- Enable better API monitoring
-- Improve developer experience
-
 ---
 
 ## 16. Database Connection Management
@@ -474,17 +467,6 @@ app.ShutdownWithContext(context.Background())
 - [ ] Caching layer (Redis)
 - [ ] Background jobs (for reports, emails)
 - [ ] Soft deletes
-
----
-
-## 24. Lessons & Best Practices
-
-### Key Takeaways
-1. **Start Simple**: Begin with working code, refactor later
-2. **Layer Properly**: Separation of concerns pays off
-3. **Log Everything**: Structured logs are invaluable
-4. **Test Core Logic**: Unit tests for business logic first
-5. **Document Decisions**: This file helps future developers
 
 ---
 
